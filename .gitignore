@@ -182,4 +182,4 @@ migrations
 alembic.ini
 
 #custom
-qdrant_storage
+/qdrant_storage/
