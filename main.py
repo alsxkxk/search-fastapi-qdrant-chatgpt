@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-
 # The file where NeuralSearcher is stored
 from neural_searcher import NeuralSearcher
 
