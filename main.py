@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 # The file where NeuralSearcher is stored
 from neural_searcher import NeuralSearcher
 from openai import OpenAI
@@ -26,8 +26,12 @@ message = [
              },
         ]
 
-@app.get("/api/search")
+@app.get("/api/search", status_code=200)
 def search_startup(q: str):
+    #아무 내용도 넘어오지 않았을 때
+    if q == "":
+        raise HTTPException(status_code=400)
+        # return HTTPException(status_code=400)
     search_result = neural_searcher.search(text=q)
 
     prompt = ""
