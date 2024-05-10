@@ -6,3 +6,4 @@ qdrant-client
 fastapi
 uvicorn
 openai~=0.28
+pydantic-settings
