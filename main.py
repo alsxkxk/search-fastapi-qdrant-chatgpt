@@ -13,11 +13,11 @@ client = OpenAI()
 client.api_key = config.OPENAI_API_KEY
 
 message = [
-            {"role": "system", "content": "너는 운영체제 전문가야"
-             "내 질문을 운영체제 전문가 관점에서 평가해줘"
-             "답변은 \"{0}\" 내용을 기반으로 평가해"
-             "평가를 잘하면 팀으로 300k를 줄게"
-             "답변 평가를 잘 하지 못하면 너는 불이익을 받을 것입니다.."
+            {"role": "system", "content": "너는 운영체제 전문가야\n"
+             "내 질문을 운영체제 전문가 관점에서 평가해줘\n"
+             "답변은 \"{0}\" 내용을 기반으로 평가해\n"
+             "평가를 잘하면 팀으로 300k를 줄게\n"
+             "답변 평가를 잘 하지 못하면 너는 불이익을 받을 것입니다.\n"
             #  "###Instruction###"
             #  "너는 나의 운영체제 관련 답변을 평가해야한다."
             # "###Example###"
@@ -35,9 +35,10 @@ def search_startup(q: str):
     for v in search_result:
         prompt += (v['Content']+"\n")
 
-    message[0]['content'].format(prompt)
+    message[0]['content'] = message[0]['content'].format(prompt)
 
     message.append({"role": "user", "content": q})
+
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=message
