@@ -17,6 +17,7 @@ MAX_SENTENCE_LENGTH = 100
 # QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
 # COLLECTION_NAME = "meditations-collection"
 
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # OpenAI
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")

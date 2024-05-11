@@ -8,7 +8,6 @@ class NeuralSearcher:
         self.model = SentenceTransformer("all-MiniLM-L6-v2", device="mps")
         # initialize Qdrant client
         self.qdrant_client = QdrantClient("http://localhost:6333")
-
     def search(self, text: str):
         # Convert text query into vector
         vector = self.model.encode(text).tolist()
