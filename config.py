@@ -12,10 +12,10 @@ MAX_SENTENCE_LENGTH = 100
 
 # Qdrant
 
-# QDRANT_HOST = os.getenv("QDRANT_HOST")
+QDRANT_URL = os.getenv("QDRANT_URL")
 # QDRANT_PORT = os.getenv("QDRANT_PORT")
-# QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
-# COLLECTION_NAME = "meditations-collection"
+QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
+COLLECTION_NAME = "my_collection"
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
