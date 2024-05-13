@@ -13,19 +13,18 @@ import time
 from transformers import AutoConfig
 
 
-
 app = FastAPI()
 
 # Create a neural searcher instance
-neural_searcher = NeuralSearcher(collection_name="startups")
+neural_searcher = NeuralSearcher(collection_name="my_collection")
 
 client = OpenAI()
 client.api_key = config.OPENAI_API_KEY
 
 @app.get("/api/evaluation", status_code=200)
-def search_startup(answer: str):
+def search_startup(question: str, answer: str):
     #아무 내용도 넘어오지 않았을 때
-    if answer == "":
+    if answer == "" or question == "":
         raise HTTPException(status_code=400)
         # return HTTPException(status_code=400)
     message = [
