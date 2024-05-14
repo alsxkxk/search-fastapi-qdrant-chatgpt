@@ -26,6 +26,7 @@ def search_startup(question: str, answer: str):
     #아무 내용도 넘어오지 않았을 때
     if answer == "" or question == "":
         raise HTTPException(status_code=400)
+    print(f'질문 : {question}\n 답변 : {answer}')
         # return HTTPException(status_code=400)
     message = [
         {"role": "system", "content": "너는 운영체제 전문가야\n"
@@ -58,6 +59,11 @@ def search_startup(question: str, answer: str):
     start = time.time()
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
+        temperature=1,
+        max_tokens=256,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0,
         messages=message
     )
     end = time.time()
