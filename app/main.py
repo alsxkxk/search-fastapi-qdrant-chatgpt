@@ -1,15 +1,8 @@
 from fastapi import FastAPI, HTTPException
 # The file where NeuralSearcher is stored
-from neural_searcher import NeuralSearcher
+from app.neural_searcher import NeuralSearcher
 from openai import OpenAI
-import config
-
-#-- test--
-import math
-import time
-#-- end_test
-
-
+import app.config as config
 from transformers import AutoConfig
 
 
@@ -27,8 +20,6 @@ def search_startup(question: str, answer: str):
     if answer == "" or question == "":
         raise HTTPException(status_code=400)
 
-    print(f'질문 : {question}\n답변 : {answer}')
-
     message = [
         {"role": "system", "content":
             "너는 백엔드 개발자를 채용하는 면접의 면접관이다\n"
@@ -40,21 +31,17 @@ def search_startup(question: str, answer: str):
         }
     ]
 
-    start = time.time()
-    math.factorial(100000)
     search_result = neural_searcher.search(text=answer)
-    end = time.time()
-    print(f"top-n개 추출하는 시간{end - start:.5f} sec")
     prompt = ""
 
     for v in search_result:
         prompt += (v['Content']+"\n")
+        prompt+="\n"
 
     message[0]['content'] = message[0]['content'].format(prompt)
 
     message.append({"role": "user", "content": "question : "+question+"\nanswer : "+answer})
 
-    start = time.time()
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         temperature=1,
@@ -64,7 +51,5 @@ def search_startup(question: str, answer: str):
         presence_penalty=0,
         messages=message
     )
-    end = time.time()
-    print(f"gpt 호출하는 시간{end - start:.5f} sec")
 
     return {"evaluation": response.choices[0].message.content}
